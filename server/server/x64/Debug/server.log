@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\Development\hChat\server\server\main.cpp(7,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  server.vcxproj -> D:\Development\hChat\server\x64\Debug\server.exe

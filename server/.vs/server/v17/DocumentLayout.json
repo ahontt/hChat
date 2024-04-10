@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Development\\hChat\\server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{84F2ED69-9A04-4B4E-9F0F-6498EA03BE85}|server\\server.vcxproj|D:\\Development\\hChat\\server\\server\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{84F2ED69-9A04-4B4E-9F0F-6498EA03BE85}|server\\server.vcxproj|solutionrelative:server\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "D:\\Development\\hChat\\server\\server\\main.cpp",
+              "RelativeDocumentMoniker": "server\\main.cpp",
+              "ToolTip": "D:\\Development\\hChat\\server\\server\\main.cpp",
+              "RelativeToolTip": "server\\main.cpp",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAAAwAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-10T19:52:33.228Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
