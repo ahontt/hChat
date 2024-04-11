@@ -115,7 +115,6 @@ void main()
 							ss << "SOCKET #" << sock << ": " << buf << "\r\n";
 							std::string strOut = ss.str();
 							
-							std::cout << "[M] " << strOut;
 
 							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 						}
@@ -124,6 +123,8 @@ void main()
 							std::ostringstream ss;
 							ss << "ME: " << buf << "\r\n";
 							std::string strOut = ss.str();
+
+							std::cout << "[M] " << strOut;
 
 							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 						}
