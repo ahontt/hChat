@@ -1,6 +1,6 @@
 ﻿  main.cpp
 D:\Development\hChat\server\server\main.cpp(9,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
-D:\Development\hChat\server\server\main.cpp(78,44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Development\hChat\server\server\main.cpp(99,24): warning C4018: '<': signed/unsigned mismatch
-D:\Development\hChat\server\server\main.cpp(108,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Development\hChat\server\server\main.cpp(82,44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Development\hChat\server\server\main.cpp(103,24): warning C4018: '<': signed/unsigned mismatch
+D:\Development\hChat\server\server\main.cpp(114,52): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   server.vcxproj -> D:\Development\hChat\server\x64\Debug\server.exe

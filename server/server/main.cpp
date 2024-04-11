@@ -72,6 +72,10 @@ void main()
 				// Add the new connection to the list of clients
 				FD_SET(client, &master);
 
+				// Log incoming connection
+
+				std::cout << "[!] New socket connected: SOCKET #" << sock << std::endl;
+
 				// Send a welcome message
 				std::string MOTD = "Welcome to hChat Server!\r\n";
 				
@@ -104,6 +108,8 @@ void main()
 							std::ostringstream ss;
 							ss << "SOCKET #" << sock << ": " << buf << "\r\n";
 							std::string strOut = ss.str();
+							
+							std::cout << "[M] " << strOut << std::endl;
 
 							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 						}
