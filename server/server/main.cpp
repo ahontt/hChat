@@ -124,7 +124,7 @@ void main()
 							ss << "ME: " << buf << "\r\n";
 							std::string strOut = ss.str();
 
-							std::cout << "[M] " << strOut;
+							std::cout << "[M] SOCKET #" << sock << ": " << strOut;
 
 							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 						}
