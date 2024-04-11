@@ -43,10 +43,9 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 532);
-            this.textBox1.Multiline = true;
+            this.textBox1.Location = new System.Drawing.Point(13, 544);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(815, 43);
+            this.textBox1.Size = new System.Drawing.Size(815, 20);
             this.textBox1.TabIndex = 1;
             // 
             // button1
@@ -57,6 +56,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Send";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
