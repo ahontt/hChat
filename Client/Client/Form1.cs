@@ -22,9 +22,6 @@ namespace Client
             InitializeComponent();
 
             _client = new TcpClient();
-            _client.Connect("127.0.0.1", 55000);
-
-            _client.GetStream().BeginRead(_buffer, 0, _buffer.Length, Server_MessageReceived, null);
         }
 
         private void Server_MessageReceived(IAsyncResult ar)
@@ -61,6 +58,13 @@ namespace Client
 
             textBox1.Text = "";
             textBox1.Focus();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            _client.Connect(toolStripTextBox3.Text, Int32.Parse(toolStripTextBox4.Text));
+
+            _client.GetStream().BeginRead(_buffer, 0, _buffer.Length, Server_MessageReceived, null);
         }
     }
 }
