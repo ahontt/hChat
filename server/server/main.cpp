@@ -1,5 +1,7 @@
 #include <iostream>
 #include <WS2tcpip.h>
+#include <string>
+#include <sstream>
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -45,73 +47,74 @@ void main()
 	// Tell winsock the socket is listening
 	listen(listening, SOMAXCONN);
 
-	// Wait for connection
-	sockaddr_in client;
-	int clientSize = sizeof(client);
+	// Create file descriptor and zero it
+	fd_set master;
+	FD_ZERO(&master);
 
-	SOCKET clientSocket = accept(listening, (sockaddr*)&client, &clientSize);
-
-	if (clientSocket == INVALID_SOCKET)
-	{
-		std::cerr << "Invalid client socket" << std::endl;
-	}
-	
-	char host[NI_MAXHOST];		// client's name
-	char service[NI_MAXHOST];	// Service the client is connected on
-
-	ZeroMemory(host, NI_MAXHOST);
-	ZeroMemory(service, NI_MAXSERV);
-
-	if (getnameinfo((sockaddr*)&client, sizeof(client), host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0)
-	{
-		std::cout << "[!] " << host << " has connected on port " << service << std::endl;
-	}
-	else {
-		inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
-		std::cout << "[!] " << host << " has connected on port " << ntohs(client.sin_port) << std::endl;
-		
-	}
-
-	// Close listening socket
-
-	closesocket(listening);
-
-	// While loop: accept and echo message to client
-	char buf[4096];
+	// Add listening socket
+	FD_SET(listening, &master);
 
 	while (true)
 	{
-		ZeroMemory(buf, 4096);
+		fd_set copy = master;
 
-		// Wait for client to send data
+		int socketCount = select(0, &copy, nullptr, nullptr, nullptr);
 
-		int bytesReceived = recv(clientSocket, buf, 4096, 0);
-		if (bytesReceived == SOCKET_ERROR) 
+		for (int i = 0; i < socketCount; i++)
 		{
-			std::cerr << "Error in recv(), exiting" << std::endl;
-			return;
+			SOCKET sock = copy.fd_array[i];
+
+			if (sock == listening)
+			{
+				// Accept a new conection
+				SOCKET client = accept(listening, nullptr, nullptr);
+
+				// Add the new connection to the list of clients
+				FD_SET(client, &master);
+
+				// Send a welcome message
+				std::string MOTD = "Welcome to hChat Server!\r\n";
+				
+				send(client, MOTD.c_str(), MOTD.size() + 1, 0);
+				
+			}
+			else 
+			{
+				char buf[4096];
+				ZeroMemory(buf, 4096);
+				
+				// Receive message
+
+				int bytesIn = recv(sock, buf, 4096, 0);
+
+				if (bytesIn <= 0)
+				{
+					// Drop client
+					closesocket(sock);
+					FD_CLR(sock, &master);
+				}
+				else 
+				{
+					// Send message to the other clients, not the listening socket
+					for (int i = 0; i < master.fd_count; i++)
+					{
+						SOCKET outSock = master.fd_array[i];
+						if (outSock != listening && outSock != sock)
+						{
+							std::ostringstream ss;
+							ss << "SOCKET #" << sock << ": " << buf << "\r\n";
+							std::string strOut = ss.str();
+
+							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+						}
+					}
+
+				}
+				
+			}
+
 		}
-		if (bytesReceived == 0)
-		{
-			std::cout << "Client Disconnected" << std::endl;
-			break;
-		}
-
-		// Echo message back to client and log message to console
-
-		char str[sizeof(buf) + 1];
-		memcpy(str, buf, sizeof(buf));
-		str[sizeof(buf)] = '\0';
-
-		std::cout << "[M] " << host << " has sent the message: " << str << std::endl;
-
-		send(clientSocket, buf, bytesReceived + 1, 0);
-
 	}
-
-	// Close socket
-
-	closesocket(clientSocket);
 
 	// Cleanup winsock
 
