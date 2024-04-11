@@ -7,6 +7,7 @@ void main()
 {
 
 	// Initializing winsock
+	std::cout << "[i] Initializing hChat Server" << std::endl;
 	std::cout << "[i] Initializing winsock" << std::endl;
 
 	WSADATA wsData;
@@ -63,11 +64,11 @@ void main()
 
 	if (getnameinfo((sockaddr*)&client, sizeof(client), host, NI_MAXHOST, service, NI_MAXSERV, 0) == 0)
 	{
-		std::cout << host << " has connected on port " << service << std::endl;
+		std::cout << "[!] " << host << " has connected on port " << service << std::endl;
 	}
 	else {
 		inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
-		std::cout << host << " has connected on port " << ntohs(client.sin_port) << std::endl;
+		std::cout << "[!] " << host << " has connected on port " << ntohs(client.sin_port) << std::endl;
 		
 	}
 
@@ -96,7 +97,13 @@ void main()
 			break;
 		}
 
-		// Echo message back to client
+		// Echo message back to client and log message to console
+
+		char str[sizeof(buf) + 1];
+		memcpy(str, buf, sizeof(buf));
+		str[sizeof(buf)] = '\0';
+
+		std::cout << "[M] " << host << " has sent the message: " << str << std::endl;
 
 		send(clientSocket, buf, bytesReceived + 1, 0);
 
